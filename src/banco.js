@@ -16,10 +16,10 @@ import mysql from 'mysql2';  // importando módulo
 
 // REMOTO
 const conexao = mysql.createConnection({
-    host: 'db4free.net',
-    user: 'testedb11',
-    password: 'Senac@123',
-    database: 'bdteste11'
+    host: '192.185.215.58',
+    user: 'kuart612_TodoMundoPEN',
+    password: 'senacpenha',
+    database: 'kuart612_APINPenha'
 });
 
 // conectando e passando mensagem de erro ou sucesso

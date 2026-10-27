@@ -2,10 +2,10 @@ import mysql from 'mysql2/promise';  // importando módulo com suporte a Promise
 
 // Criando pool de conexões (mais eficiente que conexões individuais)
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'escola-api',
+    host: '192.185.215.58',
+    user: 'kuart612_TodoMundoPEN',
+    password: 'senacpenha',
+    database: 'kuart612_APINPenha',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
