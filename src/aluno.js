@@ -1,50 +1,54 @@
-import conexao from "./banco.js";       // importando a conexão com o banco de dados
+import conexao from './banco.js';
 
-// Função ler: vai ler os alunos do banco de dados (no momento inicial não temos nenhum);
-function ler(res){
+/* Funções paraa o CRUD */
+function ler( res ){
+    // Comando SQL a ser executado
     const sql = "SELECT * FROM alunos ORDER BY nome";
 
-    conexao.query(sql, (erro, resultados)=> {
-        // verficando se há erro, e caso positivo define o status para 400 (Bad request) e apresenta o código do erro no formato json
-        if(erro){
-            res.status(400).json(erro.code);
-            return;
-        }
+    // Executa a query a partir da conexão
+    conexao.query(sql, (erro, resultados) => {
+         // Função com os parâmetros de erro e resultados
 
-        // verifica se tem registros no banco de dados, caso não tenha, define o status para 204 (sem conteúdo)
-        if(resultados === 0){
+        // Se não houver resultados
+        if(resultados.length === 0) {
+            // Indicamos o status 204 )sem conteúdo) e encerra
             res.status(204).end();
-            return;
+            return;     // força a interrupção do script caso a condição seja verdadeira. Equivalente a die( ) e exit no PHP.
         }
 
-        // define o status como 200 (OK) e exibe os resultados
-        res.status(200).json(resultados);
-    })
+        // Verificação básica por erro
+        if(erro){
+            // Se erro, statuss 400 e exibir o erro (mesmo que a mensagem nem sempre seria claro)
+            res.status(400).json(erro.code);
+        } else {
+            // Se der certo, status 200 (OK) e apresenta JSON
+            res.status(200).json(resultados);
+        }
+    });
 }
 
 
-// INSERINDO alunos no banco de dados
-function inserir(aluno, res){
-    const sql = "INSERT INTO alunos SET ?";     // O MySql2 com o " SET ? " faz com que o mysql entenda que todos os dados recebidos serão atribuídos na ordem enviada, aos campos da tabela alunos.
+
+// Função INSERIR ALUNO
+function inserir(aluno, res) {
+    const sql = "INSERT INTO alunos SET ?";
 
     conexao.query(sql, aluno, (erro) => {
         if(erro){
             res.status(400).json(erro.code);
         } else {
-            res.status(201).json({ "status" : "aluno inserido"})    // além de responder com status 201, adicionamos uma mensagem amigável para confirmar que o usuário foi inserido no banco de dados.
+            res.status(201).json({"status" : "aluno inserido!"});
         }
-    })
+    });
 }
 
 
-// exibindo UM aluno
-function lerUm(id, res){
-    const sql = "SELECT * FROM alunos WHERE id= ?";
-
+function lerUM(id, res){
+    const sql = "SELECT * FROM alunos WHERE id = ?";
     conexao.query(sql, id, (erro, resultados) => {
-        // checando se existe conteúdo
+
         if(resultados.length === 0){
-            res.status(204).res.end();
+            res.status(204).end();
             return;
         }
 
@@ -53,38 +57,38 @@ function lerUm(id, res){
         } else {
             res.status(200).json(resultados[0]);
         }
-    })
+    });
 }
 
 
-
-// atualizar dados de um aluno
-function atualizar(id, aluno, res) {
+function atualizar(id, aluno, res){
     const sql = "UPDATE alunos SET ? WHERE id = ?";
-
-    // como estamos passando 2 parâmetros - pela 1ª vez - precisa ser dentro de uma array. A ordem importa, precisamos respeitar a ordem da linha sql acima.
     conexao.query(sql, [aluno, id], (erro, resultados) => {
         if(erro){
             res.status(400).json(erro.code);
         } else {
-            res.status(200).json({"status" : "aluno atualizado com sucesso"});
-        }
+            // Saída mais simples
+            // res.status(200).json({"status" : "atualizado com sucesso"});
+
+            // Saída mais detalhada
+            // ... operaador espalhador de objetos (spread operator)
+            res.status(200).json( {...aluno, id} );
+        }    
     });
 }
 
-// deletando um aluno
-function excluir(id, res){
-    const sql = "DELETE FROM alunos WHERE id = ?";
 
+function excluir(id, res) {
+    const sql = "DELETE FROM alunos WHERE id = ?";
     conexao.query(sql, id, (erro, resultados) => {
         if(erro){
             res.status(400).json(erro.code);
         } else {
-            res.status(200).json({"status" : "estudante excluído com sucesso", id});
+            res.status(200).json({ "status" : "aluno excluído", id});
         }
-    }) 
+    });
+
 }
 
-export { ler, inserir, lerUm, atualizar, excluir };
 
-
+export { ler, inserir, lerUM, atualizar, excluir};

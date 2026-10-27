@@ -2,26 +2,25 @@
   "type": "module",
   "name": "api-alunos",
   "version": "1.0.0",
-  "description": "API utilizando nodeJs, express e banco de dados MySQL",
-  "main": "app.js",
+  "description": "API de alunos utilizando Node.JS e Express",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/profklamir/tec-api.git"
+    "url": "git+https://github.com/profklamir/tec-api-25.git"
   },
-  "author": "Klaibert Miranda",
+  "author": "Binho",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/profklamir/tec-api/issues"
+    "url": "https://github.com/profklamir/tec-api-25/issues"
   },
-  "homepage": "https://github.com/profklamir/tec-api#readme",
+  "homepage": "https://github.com/profklamir/tec-api-25#readme",
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.3.0",
-    "mysql2": "^3.24.6",
-    "nodemon": "^3.1.14"
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.14.0"
   }
 }

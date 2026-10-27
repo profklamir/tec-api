@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Alunos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="header-container">
+            <h1 class="text-center mb-4">Sistema de Gerenciamento de Alunos</h1>
+            <div class="header-decoration"></div>
+        </div>
+        
+        <!-- Formulário para adicionar novo aluno -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3><i class="fas fa-user-plus me-2"></i>Adicionar Novo Aluno</h3>
+            </div>
+            <div class="card-body">
+                <form id="formAluno">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="primeira" class="form-label">Primeira Nota</label>
+                            <input type="number" class="form-control" id="primeira" min="0" max="10" step="0.1" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="segunda" class="form-label">Segunda Nota</label>
+                            <input type="number" class="form-control" id="segunda" min="0" max="10" step="0.1" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Adicionar Aluno</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Controles de ordenação -->
+        <div class="mb-3">
+            <button id="btnOrdenarCrescente" class="btn btn-outline-secondary"><i class="fas fa-sort-numeric-down me-2"></i>Ordenar por Média (Crescente)</button>
+            <button id="btnOrdenarDecrescente" class="btn btn-outline-secondary"><i class="fas fa-sort-numeric-down-alt me-2"></i>Ordenar por Média (Decrescente)</button>
+        </div>
+
+        <!-- Tabela de alunos -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3><i class="fas fa-users me-2"></i>Lista de Alunos</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Primeira Nota</th>
+                                <th>Segunda Nota</th>
+                                <th>Média</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaAlunos">
+                            <!-- Os alunos serão inseridos aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Média geral -->
+        <div class="card mt-4 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3><i class="fas fa-chart-bar me-2"></i>Média Geral da Turma</h3>
+            </div>
+            <div class="card-body">
+                <h4 id="mediaGeral" class="text-center">Média: 0.0</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edição -->
+    <div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalEdicaoLabel">Editar Aluno</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEdicao">
+                        <input type="hidden" id="editId">
+                        <div class="mb-3">
+                            <label for="editNome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="editNome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPrimeira" class="form-label">Primeira Nota</label>
+                            <input type="number" class="form-control" id="editPrimeira" min="0" max="10" step="0.1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editSegunda" class="form-label">Segunda Nota</label>
+                            <input type="number" class="form-control" id="editSegunda" min="0" max="10" step="0.1" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarEdicao">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

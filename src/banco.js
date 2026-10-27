@@ -1,20 +1,36 @@
-import mysql2 from 'mysql2';
+import mysql from 'mysql2';  // importando módulo
 
-const conexao = mysql2.createConnection({
-    host : '192.185.215.58',
-    user : 'kuart612_TodoMundoPEN',
-    password : 'senacpenha',
-    database : 'kuart612_APINPenha'
+
+// armazenando dados de conexão em uma constante.
+// Sintaxe retirada direto da documentação do pacote
+
+
+// LOCAL
+// const conexao = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'escola-api'
+// });
+
+
+// REMOTO
+const conexao = mysql.createConnection({
+    host: 'db4free.net',
+    user: 'testedb11',
+    password: 'Senac@123',
+    database: 'bdteste11'
 });
 
-// conexao.connect();
-conexao.connect( erro => {
+// conectando e passando mensagem de erro ou sucesso
+// erro é um objeto e tem a propriedade message que devolve uma mensagem de acordo com o erro encontrado.
+conexao.connect(erro => {
     if(erro){
-        console.error(`Erro ao conectar: ${erro.message}`);     // exibindo mensagem de erro amigável
+        console.error(`Erro ao conectar: ${erro.message}`);
     } else {
-        console.log(`Banco conectado em ${conexao.config.host}`); 
+        //console.log(`Banco de dados conectado com sucesso!`)
+        console.log(`Banco de dados conectado em ${conexao.config.host}`);
     }
 });
 
-// exportando a conexão com o banco de dados
 export default conexao;
